@@ -68,7 +68,7 @@ The following sequence illustrates the message exchanges between rsyslog and the
 plugin. A right arrow (`=>`) indicates a message read by the plugin from its
 stdin, and a left arrow (`<=`) indicates a message written by the plugin to its
 stdout. Note that the arrows themselves are not read or written. Each line is
-terminated by a LF (\n).
+terminated by a LF (`\n`).
 
     <= OK
     => log message 1
@@ -316,6 +316,7 @@ like the output module interface, multiple instances of the plugin may be
 activated. See above for more information.
 
 Most message properties can be modified. Modifiable are:
+
 * rawmsg
 * msg
 * syslogtag
