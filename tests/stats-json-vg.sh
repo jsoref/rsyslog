@@ -24,7 +24,7 @@ if ($msg == "this condition will never match") then {
 }
 '
 startup_vg
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_1
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_1
 wait_queueempty
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log
 echo doing shutdown

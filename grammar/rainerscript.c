@@ -4304,7 +4304,7 @@ cnfstmtNewReloadLookupTable(struct cnffparamlst *fparams)
 			if (param->expr->nodetype != 'S') {
 				parser_errmsg("statement ignored: reload_lookup_table(table_name, "
 					"optional:stub_value_in_case_reload_fails) "
-					"expects a litteral string for second argument\n");
+					"expects a literal string for second argument\n");
 				failed = 1;
 			}
 			if ((cnfstmt->d.s_reload_lookup_table.stub_value =
@@ -4319,7 +4319,7 @@ cnfstmtNewReloadLookupTable(struct cnffparamlst *fparams)
 			if (param->expr->nodetype != 'S') {
 				parser_errmsg("statement ignored: reload_lookup_table(table_name, "
 					"optional:stub_value_in_case_reload_fails) "
-				 	"expects a litteral string for first argument\n");
+				 	"expects a literal string for first argument\n");
 				failed = 1;
 			}
 			if ((cnfstmt->d.s_reload_lookup_table.table_name =

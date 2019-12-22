@@ -29,11 +29,11 @@ action(type="omfile" file=`echo $RSYSLOG_OUT_LOG` template="outfmt")
 startup_vg
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log
 . $srcdir/diag.sh block-stats-flush
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_1
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_1
 . $srcdir/diag.sh allow-single-stats-flush-after-block-and-wait-for-it
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_2
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_2
 . $srcdir/diag.sh allow-single-stats-flush-after-block-and-wait-for-it
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_3
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_3
 . $srcdir/diag.sh await-stats-flush-after-block
 wait_queueempty
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log

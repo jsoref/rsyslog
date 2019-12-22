@@ -2452,9 +2452,9 @@ case $1 in
 		kill -9 $(cat $RSYSLOG_PIDBASE.pid)
 		# note: we do not wait for the actual termination!
 		;;
-    'injectmsg-litteral') # inject litteral-payload  via our inject interface (imdiag)
+    'injectmsg-literal') # inject literal-payload  via our inject interface (imdiag)
 		echo injecting msg payload from: $2
-		sed -e 's/^/injectmsg litteral /g' < "$2" | $TESTTOOL_DIR/diagtalker -p$IMDIAG_PORT || error_exit  $?
+		sed -e 's/^/injectmsg literal /g' < "$2" | $TESTTOOL_DIR/diagtalker -p$IMDIAG_PORT || error_exit  $?
 		# TODO: some return state checking? (does it really make sense here?)
 		;;
    'assert-equal')

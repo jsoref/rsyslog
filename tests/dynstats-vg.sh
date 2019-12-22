@@ -24,7 +24,7 @@ action(type="omfile" file=`echo $RSYSLOG_OUT_LOG` template="outfmt")
 '
 startup_vg
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input
 wait_queueempty
 content_check "foo 001 0"
 content_check "bar 002 0"

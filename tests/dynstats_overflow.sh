@@ -27,8 +27,8 @@ action(type="omfile" file=`echo $RSYSLOG_OUT_LOG` template="outfmt")
 startup
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log
 . $srcdir/diag.sh block-stats-flush
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_more_0
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_more_1
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_more_0
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_more_1
 wait_queueempty
 . $srcdir/diag.sh allow-single-stats-flush-after-block-and-wait-for-it
 
@@ -57,7 +57,7 @@ rm ${RSYSLOG_DYNNAME}.out.stats.log
 issue_HUP #reopen stats file
 . $srcdir/diag.sh wait-for-stats-flush ${RSYSLOG_DYNNAME}.out.stats.log
 . $srcdir/diag.sh block-stats-flush
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_input_more_2
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_input_more_2
 wait_queueempty
 . $srcdir/diag.sh allow-single-stats-flush-after-block-and-wait-for-it
 

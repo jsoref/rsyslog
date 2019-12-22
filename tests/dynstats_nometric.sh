@@ -27,7 +27,7 @@ startup
 wait_queueempty
 rm $srcdir/${RSYSLOG_DYNNAME}.out.stats.log
 issue_HUP #reopen stats file
-. $srcdir/diag.sh injectmsg-litteral $srcdir/testsuites/dynstats_empty_input
+. $srcdir/diag.sh injectmsg-literal $srcdir/testsuites/dynstats_empty_input
 wait_queueempty
 rst_msleep 1100 # wait for stats flush
 echo doing shutdown
