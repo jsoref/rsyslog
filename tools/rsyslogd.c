@@ -770,7 +770,7 @@ rsRetVal createMainQueue(qqueue_t **ppQueue, uchar *pszQueueName, struct nvlst *
 		setQPROP(qqueueSetiPersistUpdCnt, "$MainMsgQueueCheckpointInterval",
 			ourConf->globals.mainQ.iMainMsgQPersistUpdCnt);
 		setQPROP(qqueueSetbSyncQueueFiles, "$MainMsgQueueSyncQueueFiles",
-			ourConf->globals.mainQ.bMainMsgQSyncQeueFiles);
+			ourConf->globals.mainQ.bMainMsgQSyncQueueFiles);
 		setQPROP(qqueueSettoQShutdown, "$MainMsgQueueTimeoutShutdown",
 			ourConf->globals.mainQ.iMainMsgQtoQShutdown );
 		setQPROP(qqueueSettoActShutdown, "$MainMsgQueueTimeoutActionCompletion",

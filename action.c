@@ -168,7 +168,7 @@ typedef struct configSettings_s {
 	uchar *pszActionQFName;				/* prefix for the main message queue file */
 	int64 iActionQueMaxFileSize;
 	int iActionQPersistUpdCnt;			/* persist queue info every n updates */
-	int bActionQSyncQeueFiles;			/* sync queue files */
+	int bActionQSyncQueueFiles;			/* sync queue files */
 	int iActionQtoQShutdown;			/* queue shutdown */
 	int iActionQtoActShutdown;			/* action shutdown (in phase 2) */
 	int iActionQtoEnq;				/* timeout for queue enque */
@@ -304,7 +304,7 @@ actionResetQueueParams(void)
 	cs.iActionQueueNumWorkers = 1;			/* number of worker threads for the mm queue above */
 	cs.iActionQueMaxFileSize = 1024*1024;
 	cs.iActionQPersistUpdCnt = 0;			/* persist queue info every n updates */
-	cs.bActionQSyncQeueFiles = 0;
+	cs.bActionQSyncQueueFiles = 0;
 	cs.iActionQtoQShutdown = 0;			/* queue shutdown */
 	cs.iActionQtoActShutdown = 1000;		/* action shutdown (in phase 2) */
 	cs.iActionQtoEnq = 50;				/* timeout for queue enque */
@@ -549,7 +549,7 @@ actionConstructFinalize(action_t *__restrict__ const pThis, struct nvlst *lst)
 		setQPROP(qqueueSetMaxFileSize, "$ActionQueueFileSize", cs.iActionQueMaxFileSize);
 		setQPROPstr(qqueueSetFilePrefix, "$ActionQueueFileName", cs.pszActionQFName);
 		setQPROP(qqueueSetiPersistUpdCnt, "$ActionQueueCheckpointInterval", cs.iActionQPersistUpdCnt);
-		setQPROP(qqueueSetbSyncQueueFiles, "$ActionQueueSyncQueueFiles", cs.bActionQSyncQeueFiles);
+		setQPROP(qqueueSetbSyncQueueFiles, "$ActionQueueSyncQueueFiles", cs.bActionQSyncQueueFiles);
 		setQPROP(qqueueSettoQShutdown, "$ActionQueueTimeoutShutdown", cs.iActionQtoQShutdown );
 		setQPROP(qqueueSettoActShutdown, "$ActionQueueTimeoutActionCompletion", cs.iActionQtoActShutdown);
 		setQPROP(qqueueSettoWrkShutdown, "$ActionQueueWorkerTimeoutThreadShutdown", cs.iActionQtoWrkShutdown);
@@ -2314,7 +2314,7 @@ rsRetVal actionClassInit(void)
 	CHKiRet(regCfSysLineHdlr((uchar *)"actionqueuecheckpointinterval", 0, eCmdHdlrInt, NULL,
 		&cs.iActionQPersistUpdCnt, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"actionqueuesyncqueuefiles", 0, eCmdHdlrBinary, NULL,
-		&cs.bActionQSyncQeueFiles, NULL));
+		&cs.bActionQSyncQueueFiles, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"actionqueuetype", 0, eCmdHdlrGetWord, setActionQueType, NULL, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"actionqueueworkerthreads", 0, eCmdHdlrInt, NULL,
 		&cs.iActionQueueNumWorkers, NULL));

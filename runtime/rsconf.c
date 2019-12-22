@@ -171,7 +171,7 @@ static void cnfSetDefaults(rsconf_t *pThis)
 	pThis->globals.mainQ.pszMainMsgQFName = NULL;
 	pThis->globals.mainQ.iMainMsgQueMaxFileSize = 1024*1024;
 	pThis->globals.mainQ.iMainMsgQPersistUpdCnt = 0;
-	pThis->globals.mainQ.bMainMsgQSyncQeueFiles = 0;
+	pThis->globals.mainQ.bMainMsgQSyncQueueFiles = 0;
 	pThis->globals.mainQ.iMainMsgQtoQShutdown = 1500;
 	pThis->globals.mainQ.iMainMsgQtoActShutdown = 1000;
 	pThis->globals.mainQ.iMainMsgQtoEnq = 2000;
@@ -1187,7 +1187,7 @@ initLegacyConf(void)
 	CHKiRet(regCfSysLineHdlr((uchar *)"mainmsgqueuecheckpointinterval", 0, eCmdHdlrInt,
 		NULL, &loadConf->globals.mainQ.iMainMsgQPersistUpdCnt, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"mainmsgqueuesyncqueuefiles", 0, eCmdHdlrBinary,
-		NULL, &loadConf->globals.mainQ.bMainMsgQSyncQeueFiles, NULL));
+		NULL, &loadConf->globals.mainQ.bMainMsgQSyncQueueFiles, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"mainmsgqueuetype", 0, eCmdHdlrGetWord,
 		setMainMsgQueType, NULL, NULL));
 	CHKiRet(regCfSysLineHdlr((uchar *)"mainmsgqueueworkerthreads", 0, eCmdHdlrInt,

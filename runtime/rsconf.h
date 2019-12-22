@@ -42,7 +42,7 @@ struct queuecnf_s {
 	uchar *pszMainMsgQFName;	/* prefix for the main message queue file */
 	int64 iMainMsgQueMaxFileSize;
 	int iMainMsgQPersistUpdCnt;	/* persist queue info every n updates */
-	int bMainMsgQSyncQeueFiles;	/* sync queue files on every write? */
+	int bMainMsgQSyncQueueFiles;	/* sync queue files on every write? */
 	int iMainMsgQtoQShutdown;	/* queue shutdown (ms) */
 	int iMainMsgQtoActShutdown;	/* action shutdown (in phase 2) */
 	int iMainMsgQtoEnq;		/* timeout for queue enque */
