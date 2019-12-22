@@ -37,7 +37,7 @@ struct parser_s {
 	uchar *pName;		/* name of this parser */
 	modInfo_t *pModule;	/* pointer to parser's module */
 	void *pInst;		/* instance data for the parser (v2+ module interface) */
-	sbool bDoSanitazion;	/* do standard message sanitazion before calling parser? */
+	sbool bDoSanitization;	/* do standard message sanitization before calling parser? */
 	sbool bDoPRIParsing;	/* do standard PRI parsing before calling parser? */
 };
 

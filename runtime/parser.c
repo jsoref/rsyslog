@@ -276,9 +276,9 @@ parserConstructViaModAndName(modInfo_t *__restrict__ pMod, uchar *const __restri
 	}
 	CHKiRet(parserConstruct(&pParser));
 	/* check some features */
-	localRet = pMod->isCompatibleWithFeature(sFEATUREAutomaticSanitazion);
+	localRet = pMod->isCompatibleWithFeature(sFEATUREAutomaticSanitization);
 	if(localRet == RS_RET_OK){
-		pParser->bDoSanitazion = RSTRUE;
+		pParser->bDoSanitization = RSTRUE;
 	}
 	localRet = pMod->isCompatibleWithFeature(sFEATUREAutomaticPRIParsing);
 	if(localRet == RS_RET_OK){
@@ -652,7 +652,7 @@ ParseMsg(smsg_t *pMsg)
 	bPRIisParsed = RSFALSE;
 	while(pParserList != NULL) {
 		pParser = pParserList->pParser;
-		if(pParser->bDoSanitazion && bIsSanitized == RSFALSE) {
+		if(pParser->bDoSanitization && bIsSanitized == RSFALSE) {
 			CHKiRet(SanitizeMsg(pMsg));
 			if(pParser->bDoPRIParsing && bPRIisParsed == RSFALSE) {
 				CHKiRet(ParsePRI(pMsg));

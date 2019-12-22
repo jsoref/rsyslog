@@ -193,7 +193,7 @@ ENDfreeParserInst
 
 BEGINisCompatibleWithFeature
 CODESTARTisCompatibleWithFeature
-	if(eFeat == sFEATUREAutomaticSanitazion)
+	if(eFeat == sFEATUREAutomaticSanitization)
 		iRet = RS_RET_OK;
 	if(eFeat == sFEATUREAutomaticPRIParsing)
 		iRet = RS_RET_OK;
