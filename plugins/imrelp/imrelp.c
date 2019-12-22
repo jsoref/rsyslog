@@ -399,7 +399,7 @@ addListner(modConfData_t __attribute__((unused)) *modConf, instanceConf_t *inst)
 		#endif
 	}
 
-	CHKiRet(relpEngineListnerConstruct(pRelpEngine, &pSrv));
+	CHKiRet(relpEngineListenerConstruct(pRelpEngine, &pSrv));
 	CHKiRet(relpSrvSetMaxDataSize(pSrv, inst->maxDataSize));
 	CHKiRet(relpSrvSetLstnPort(pSrv, inst->pszBindPort));
 	#if defined(HAVE_RELPSRVSETLSTNADDR)
@@ -476,7 +476,7 @@ addListner(modConfData_t __attribute__((unused)) *modConf, instanceConf_t *inst)
 			relpSrvAddPermittedPeer(pSrv, (char*)inst->permittedPeers.name[i]);
 		}
 	}
-	relpRet = relpEngineListnerConstructFinalize(pRelpEngine, pSrv);
+	relpRet = relpEngineListenerConstructFinalize(pRelpEngine, pSrv);
 	/* re-check error TLS error codes. librelp seems to emit them only
 	 * after finalize in some cases...
 	 */
