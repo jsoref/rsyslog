@@ -284,9 +284,9 @@ parse_result_store(const grok_match_t gm,instanceData *pData)
 	RETiRet;
 }
 
-/* motify message for per line */
+/* modify message for per line */
 static rsRetVal
-MotifyLine(char *line,grok_t *grok,instanceData *pData)
+ModifyLine(char *line,grok_t *grok,instanceData *pData)
 {
 	grok_match_t  gm;
 	DEFiRet;
@@ -308,9 +308,9 @@ finalize_it:
 	RETiRet;
 }
 
-/* motify rsyslog messages */
+/* modify rsyslog messages */
 static rsRetVal
-MotifyMessage(instanceData *pData)
+ModifyMessage(instanceData *pData)
 {
 	char *saveptr = NULL;
 	DEFiRet;
@@ -319,7 +319,7 @@ MotifyMessage(instanceData *pData)
 	char     *line = NULL;
 	line = strtok_r(msg, "\n", &saveptr);
 	while(line!=NULL) {
-		MotifyLine(line,grok,pData);
+		ModifyLine(line,grok,pData);
 		line = strtok_r(NULL, "\n", &saveptr);
 	}
 	free(msg);msg=NULL;
@@ -346,7 +346,7 @@ CODESTARTdoAction
 		ABORT_FINALIZE(RS_RET_NO_CEE_MSG);
 	}
 	pData->pszSource = (char *)buf;
-	CHKiRet(MotifyMessage(pData));
+	CHKiRet(ModifyMessage(pData));
 
 finalize_it:
 ENDdoAction
