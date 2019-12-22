@@ -80,7 +80,7 @@ struct queue_s {
 	sbool	bSyncQueueFiles;/* if working with files, sync them after each write? */
 	int	iHighWtrMrk;	/* high water mark for disk-assisted memory queues */
 	int	iLowWtrMrk;	/* low water mark for disk-assisted memory queues */
-	int	iDiscardMrk;	/* if the queue is above this mark, low-severity messages are discarded */
+	int	iDiscardMark;	/* if the queue is above this mark, low-severity messages are discarded */
 	int	iFullDlyMrk;	/* if the queue is above this mark, FULL_DELAYable message are put on hold */
 	int	iLightDlyMrk;	/* if the queue is above this mark, LIGHT_DELAYable message are put on hold */
 	int	iDiscardSeverity;/* messages of this severity above are discarded on too-full queue */
@@ -226,7 +226,7 @@ PROTOTYPEpropSetMeth(qqueue, toEnq, long);
 PROTOTYPEpropSetMeth(qqueue, iLightDlyMrk, int);
 PROTOTYPEpropSetMeth(qqueue, iHighWtrMrk, int);
 PROTOTYPEpropSetMeth(qqueue, iLowWtrMrk, int);
-PROTOTYPEpropSetMeth(qqueue, iDiscardMrk, int);
+PROTOTYPEpropSetMeth(qqueue, iDiscardMark, int);
 PROTOTYPEpropSetMeth(qqueue, iDiscardSeverity, int);
 PROTOTYPEpropSetMeth(qqueue, iMinMsgsPerWrkr, int);
 PROTOTYPEpropSetMeth(qqueue, iNumWorkerThreads, int);

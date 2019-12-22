@@ -321,7 +321,7 @@ qqueueDbgPrint(qqueue_t *pThis)
 	dbgoprint((obj_t*) pThis, "queue.fulldelaymark: %d\n", pThis->iFullDlyMrk);
 	dbgoprint((obj_t*) pThis, "queue.lightdelaymark: %d\n", pThis->iLightDlyMrk);
 	dbgoprint((obj_t*) pThis, "queue.takeflowctlfrommsg: %d\n", pThis->takeFlowCtlFromMsg);
-	dbgoprint((obj_t*) pThis, "queue.discardmark: %d\n", pThis->iDiscardMrk);
+	dbgoprint((obj_t*) pThis, "queue.discardmark: %d\n", pThis->iDiscardMark);
 	dbgoprint((obj_t*) pThis, "queue.discardseverity: %d\n", pThis->iDiscardSeverity);
 	dbgoprint((obj_t*) pThis, "queue.checkpointinterval: %d\n", pThis->iPersistUpdCnt);
 	dbgoprint((obj_t*) pThis, "queue.syncqueuefiles: %d\n", pThis->bSyncQueueFiles);
@@ -486,7 +486,7 @@ StartDA(qqueue_t *pThis)
 	CHKiRet(qqueueSetiDeqtWinToHr(pThis->pqDA, pThis->iDeqtWinToHr));
 	CHKiRet(qqueueSettoQShutdown(pThis->pqDA, pThis->toQShutdown));
 	CHKiRet(qqueueSetiHighWtrMrk(pThis->pqDA, 0));
-	CHKiRet(qqueueSetiDiscardMrk(pThis->pqDA, 0));
+	CHKiRet(qqueueSetiDiscardMark(pThis->pqDA, 0));
 	pThis->pqDA->iDeqBatchSize = pThis->iDeqBatchSize;
 	pThis->pqDA->iMinDeqBatchSize = pThis->iMinDeqBatchSize;
 	pThis->pqDA->iMinMsgsPerWrkr = pThis->iMinMsgsPerWrkr;
@@ -1536,7 +1536,7 @@ qqueueSetDefaultsActionQueue(qqueue_t *pThis)
 	pThis->toMinDeqBatchSize = 1000;
 	pThis->iHighWtrMrk = -1;		/* high water mark for disk-assisted queues */
 	pThis->iLowWtrMrk = -1;			/* low water mark for disk-assisted queues */
-	pThis->iDiscardMrk = -1;		/* begin to discard messages */
+	pThis->iDiscardMark = -1;		/* begin to discard messages */
 	pThis->iDiscardSeverity = 8;		/* turn off */
 	pThis->iNumWorkerThreads = 1;		/* number of worker threads for the mm queue above */
 	pThis->iMaxFileSize = 1024*1024;
@@ -1569,7 +1569,7 @@ qqueueSetDefaultsRulesetQueue(qqueue_t *pThis)
 	pThis->toMinDeqBatchSize = 1000;
 	pThis->iHighWtrMrk = -1;		/* high water mark for disk-assisted queues */
 	pThis->iLowWtrMrk = -1;			/* low water mark for disk-assisted queues */
-	pThis->iDiscardMrk = -1;		/* begin to discard messages */
+	pThis->iDiscardMark = -1;		/* begin to discard messages */
 	pThis->iDiscardSeverity = 8;		/* turn off */
 	pThis->iNumWorkerThreads = 1;		/* number of worker threads for the mm queue above */
 	pThis->iMaxFileSize = 16*1024*1024;
@@ -1610,7 +1610,7 @@ static int qqueueChkDiscardMsg(qqueue_t *pThis, int iQueueSize, smsg_t *pMsg)
 
 	ISOBJ_TYPE_assert(pThis, qqueue);
 
-	if(pThis->iDiscardMrk > 0 && iQueueSize >= pThis->iDiscardMrk) {
+	if(pThis->iDiscardMark > 0 && iQueueSize >= pThis->iDiscardMark) {
 		iRetLocal = MsgGetSeverity(pMsg, &iSeverity);
 		if(iRetLocal == RS_RET_OK && iSeverity >= pThis->iDiscardSeverity) {
 			DBGOPRINT((obj_t*) pThis, "queue nearly full (%d entries), discarded severity %d message\n",
@@ -2413,19 +2413,19 @@ qqueueStart(qqueue_t *pThis) /* this is the ConstructionFinalizer */
 		}
 	}
 
-	if(pThis->iDiscardMrk > pThis->iMaxQueueSize) {
+	if(pThis->iDiscardMark > pThis->iMaxQueueSize) {
 		LogError(0, RS_RET_PARAM_ERROR, "error: queue \"%s\": "
 				"queue.discardMark %d is set larger than queue.size",
-				obj.GetName((obj_t*) pThis), pThis->iDiscardMrk);
+				obj.GetName((obj_t*) pThis), pThis->iDiscardMark);
 	}
 
 	goodval = (pThis->iMaxQueueSize / 100) * 80;
-	if(pThis->iDiscardMrk != -1 && pThis->iDiscardMrk < goodval) {
+	if(pThis->iDiscardMark != -1 && pThis->iDiscardMark < goodval) {
 		LogMsg(0, RS_RET_CONF_PARSE_WARNING, LOG_WARNING,
 				"queue \"%s\": queue.discardMark "
 				"is set quite low at %d. You should only set it below "
 				"80%% (%d) if you have a good reason for this.",
-				obj.GetName((obj_t*) pThis), pThis->iDiscardMrk, goodval);
+				obj.GetName((obj_t*) pThis), pThis->iDiscardMark, goodval);
 	}
 
 	if(pThis->pszFilePrefix != NULL) { /* This means we have a potential DA queue */
@@ -2481,11 +2481,11 @@ qqueueStart(qqueue_t *pThis) /* this is the ConstructionFinalizer */
 		}
 	}
 
-	if(pThis->iDiscardMrk < 1 || pThis->iDiscardMrk > pThis->iMaxQueueSize) {
-		pThis->iDiscardMrk  = (pThis->iMaxQueueSize / 100) * 98;
-		if(pThis->iDiscardMrk == 0) {
+	if(pThis->iDiscardMark < 1 || pThis->iDiscardMark > pThis->iMaxQueueSize) {
+		pThis->iDiscardMark  = (pThis->iMaxQueueSize / 100) * 98;
+		if(pThis->iDiscardMark == 0) {
 			/* for very small queues, we disable this by default */
-			pThis->iDiscardMrk = pThis->iMaxQueueSize;
+			pThis->iDiscardMark = pThis->iMaxQueueSize;
 		}
 	}
 
@@ -2527,14 +2527,14 @@ qqueueStart(qqueue_t *pThis) /* this is the ConstructionFinalizer */
 			          "maxQSize %d, lqsize %d, pqsize %d, child %d, full delay %d, "
 				  "light delay %d, deq batch size %d, min deq batch size %d, "
 				  "high wtrmrk %d, low wtrmrk %d, "
-				  "discardmrk %d, max wrkr %d, min msgs f. wrkr %d "
+				  "discardmark %d, max wrkr %d, min msgs f. wrkr %d "
 				  "takeFlowCtlFromMsg %d\n",
 		  pThis->qType, pThis->bEnqOnly, pThis->bIsDA, pThis->pszSpoolDir,
 		  pThis->iMaxFileSize, pThis->iMaxQueueSize,
 		  getLogicalQueueSize(pThis), getPhysicalQueueSize(pThis),
 		  pThis->pqParent == NULL ? 0 : 1, pThis->iFullDlyMrk, pThis->iLightDlyMrk,
 		  pThis->iDeqBatchSize, pThis->iMinDeqBatchSize, pThis->iHighWtrMrk, pThis->iLowWtrMrk,
-		  pThis->iDiscardMrk, (int) pThis->iNumWorkerThreads, (int) pThis->iMinMsgsPerWrkr,
+		  pThis->iDiscardMark, (int) pThis->iNumWorkerThreads, (int) pThis->iMinMsgsPerWrkr,
 		  pThis->takeFlowCtlFromMsg);
 
 	pThis->bQueueStarted = 1;
@@ -3379,7 +3379,7 @@ qqueueApplyCnfParam(qqueue_t *pThis, struct nvlst *lst)
 		} else if(!strcmp(pblk.descr[i].name, "queue.lightdelaymark")) {
 			pThis->iLightDlyMrk = pvals[i].val.d.n;
 		} else if(!strcmp(pblk.descr[i].name, "queue.discardmark")) {
-			pThis->iDiscardMrk = pvals[i].val.d.n;
+			pThis->iDiscardMark = pvals[i].val.d.n;
 		} else if(!strcmp(pblk.descr[i].name, "queue.discardseverity")) {
 			pThis->iDiscardSeverity = pvals[i].val.d.n;
 		} else if(!strcmp(pblk.descr[i].name, "queue.checkpointinterval")) {
@@ -3475,7 +3475,7 @@ DEFpropSetMeth(qqueue, toWrkShutdown, long)
 DEFpropSetMeth(qqueue, toEnq, long)
 DEFpropSetMeth(qqueue, iHighWtrMrk, int)
 DEFpropSetMeth(qqueue, iLowWtrMrk, int)
-DEFpropSetMeth(qqueue, iDiscardMrk, int)
+DEFpropSetMeth(qqueue, iDiscardMark, int)
 DEFpropSetMeth(qqueue, iDiscardSeverity, int)
 DEFpropSetMeth(qqueue, iLightDlyMrk, int)
 DEFpropSetMeth(qqueue, iNumWorkerThreads, int)

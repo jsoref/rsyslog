@@ -782,7 +782,7 @@ rsRetVal createMainQueue(qqueue_t **ppQueue, uchar *pszQueueName, struct nvlst *
 			ourConf->globals.mainQ.iMainMsgQHighWtrMark);
 		setQPROP(qqueueSetiLowWtrMrk, "$MainMsgQueueLowWaterMark",
 			ourConf->globals.mainQ.iMainMsgQLowWtrMark);
-		setQPROP(qqueueSetiDiscardMrk, "$MainMsgQueueDiscardMark",
+		setQPROP(qqueueSetiDiscardMark, "$MainMsgQueueDiscardMark",
 			ourConf->globals.mainQ.iMainMsgQDiscardMark);
 		setQPROP(qqueueSetiDiscardSeverity, "$MainMsgQueueDiscardSeverity",
 			ourConf->globals.mainQ.iMainMsgQDiscardSeverity);
