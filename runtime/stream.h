@@ -84,7 +84,7 @@ typedef enum {
 } strmType_t;
 
 typedef enum {				/* when extending, do NOT change existing modes! */
-	STREAMMMODE_INVALID = 0,
+	STREAMMODE_INVALID = 0,
 	STREAMMODE_READ = 1,
 	STREAMMODE_WRITE = 2,
 	STREAMMODE_WRITE_TRUNC = 3,

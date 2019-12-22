@@ -269,7 +269,7 @@ doPhysOpen(strm_t *pThis)
 		case STREAMMODE_WRITE_APPEND:
 			iFlags = O_CLOEXEC | O_NOCTTY | O_WRONLY | O_CREAT | O_APPEND;
 			break;
-		case STREAMMMODE_INVALID:
+		case STREAMMODE_INVALID:
 		default:assert(0);
 			break;
 	}
