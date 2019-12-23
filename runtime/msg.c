@@ -1484,7 +1484,7 @@ smsg_t *MsgAddRef(smsg_t * const pM)
  * rgerhards, 2005-11-24
  * THIS MUST be called with the message lock locked.
  */
-static rsRetVal aquirePROCIDFromTAG(smsg_t * const pM)
+static rsRetVal acquirePROCIDFromTAG(smsg_t * const pM)
 {
 	register int i;
 	uchar *pszTag;
@@ -1549,7 +1549,7 @@ finalize_it:
  * rgerhards, 2005-10-19
  */
 static rsRetVal
-aquireProgramName(smsg_t * const pM)
+acquireProgramName(smsg_t * const pM)
 {
 	int i;
 	uchar *pszTag, *pszProgName;
@@ -2242,7 +2242,7 @@ static void preparePROCID(smsg_t * const pM, sbool bLockMutex)
 			MsgLock(pM);
 		/* re-query, things may have changed in the mean time... */
 		if(pM->pCSPROCID == NULL)
-			aquirePROCIDFromTAG(pM);
+			acquirePROCIDFromTAG(pM);
 		if(bLockMutex == LOCK_MUTEX)
 			MsgUnlock(pM);
 	}
@@ -2493,7 +2493,7 @@ tryEmulateTAG(smsg_t *const pM, const sbool bLockMutex)
 			bufTAG[sizeof(bufTAG)-1] = '\0'; /* just to make sure... */
 			MsgSetTAG(pM, bufTAG, lenTAG);
 		}
-		/* Signal change in TAG for aquireProgramName */
+		/* Signal change in TAG for acquireProgramName */
 		pM->iLenPROGNAME = -1;
 	}
 	if(bLockMutex == LOCK_MUTEX)
@@ -2622,10 +2622,10 @@ getProgramName(smsg_t *const pM, const sbool bLockMutex)
 			MsgLock(pM);
 			/* need to re-check, things may have change in between! */
 			if(pM->iLenPROGNAME == -1)
-				aquireProgramName(pM);
+				acquireProgramName(pM);
 			MsgUnlock(pM);
 		} else {
-			aquireProgramName(pM);
+			acquireProgramName(pM);
 		}
 	}
 	return (pM->iLenPROGNAME < CONF_PROGNAME_BUFSIZE) ? pM->PROGNAME.szBuf
