@@ -270,7 +270,7 @@ filemonGeneratedFilename OBJECT-TYPE
        "Generated Filename, the source file of this event."
     ::= { filemonvars 2 }
 
-filemonMsgseperator OBJECT-TYPE
+filemonMsgseparator OBJECT-TYPE
     SYNTAX  SmallString
     MAX-ACCESS  accessible-for-notify
     STATUS      current
