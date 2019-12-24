@@ -6430,7 +6430,7 @@ Version 7.4.2  [v7.4-stable] 2013-07-04
 - bugfix: lmsig_gt abort on invalid configuration parameters
   closes: http://bugzilla.adiscon.com/show_bug.cgi?id=448
   Thanks to Risto Laanoja for the patch.
-- imtcp: fix typo in "listner" parameter, which is "listener"
+- imtcp: fix typo in "listener" parameter, which is "listener"
   Currently, both names are accepted.
 - solved build problems on FreeBSD
   closes: http://bugzilla.adiscon.com/show_bug.cgi?id=457

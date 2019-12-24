@@ -166,7 +166,7 @@ static struct cnfparamdescr modpdescr[] = {
 	{ "addtlframedelimiter", eCmdHdlrNonNegInt, 0 },
 	{ "maxframesize", eCmdHdlrInt, 0 },
 	{ "maxsessions", eCmdHdlrPositiveInt, 0 },
-	{ "maxlistners", eCmdHdlrPositiveInt, 0 },
+	{ "maxlisteners", eCmdHdlrPositiveInt, 0 },
 	{ "maxlisteners", eCmdHdlrPositiveInt, 0 },
 	{ "streamdriver.mode", eCmdHdlrNonNegInt, 0 },
 	{ "streamdriver.authmode", eCmdHdlrString, 0 },
@@ -554,7 +554,7 @@ CODESTARTsetModCnf
 		} else if(!strcmp(modpblk.descr[i].name, "maxsessions")) {
 			loadModConf->iTCPSessMax = (int) pvals[i].val.d.n;
 		} else if(!strcmp(modpblk.descr[i].name, "maxlisteners") ||
-			  !strcmp(modpblk.descr[i].name, "maxlistners")) { /* keep old name for a while */
+			  !strcmp(modpblk.descr[i].name, "maxlisteners")) { /* keep old name for a while */
 			loadModConf->iTCPLstnMax = (int) pvals[i].val.d.n;
 		} else if(!strcmp(modpblk.descr[i].name, "keepalive")) {
 			loadModConf->bKeepAlive = (int) pvals[i].val.d.n;
