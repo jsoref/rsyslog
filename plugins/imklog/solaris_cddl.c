@@ -155,7 +155,7 @@ sun_openklog(char *name, int mode)
 		return (-1);
 	}
 	str.ic_cmd = I_CONSLOG;
-	str.ic_timout = 0;
+	str.ic_timeout = 0;
 	str.ic_len = 0;
 	str.ic_dp = NULL;
 	if (ioctl(fd, I_STR, &str) < 0) {
